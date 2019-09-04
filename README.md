@@ -11,4 +11,5 @@ Run this command to load or update the CLOUDPILOTS environment
 
 ```bash
 curl https://raw.githubusercontent.com/cloudpilots/cloudshell/master/init.sh  | bash -
+source $HOME/.bashrc
 ```
