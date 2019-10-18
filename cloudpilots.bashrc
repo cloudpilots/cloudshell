@@ -15,9 +15,9 @@ select_gcp_project() {
   echo -n "your selection: "
   read GCLOUD_PROJECT
   re='^[0-9]+$'
-  if [[ "$project_id" =~ $re ]]; then
+  if [[ "$GCLOUD_PROJECT" =~ $re ]]; then
     # number
-    GCLOUD_PROJECT=$(gcloud projects list | sed "${project_id}q;d" | awk '{print $1}')
+    GCLOUD_PROJECT=$(gcloud projects list | sed "${GCLOUD_PROJECT}q;d" | awk '{print $1}')
   fi
   export GCLOUD_PROJECT
   export PROJECT_ID=$GCLOUD_PROJECT
