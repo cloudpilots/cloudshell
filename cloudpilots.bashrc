@@ -20,6 +20,7 @@ select_gcp_project() {
     GCLOUD_PROJECT=$(gcloud projects list | sed "${project_id}q;d" | awk '{print $1}')
   fi
   export GCLOUD_PROJECT
+  export PROJECT_ID=$GCLOUD_PROJECT
   gcloud config set project "$GCLOUD_PROJECT"
 }
 
