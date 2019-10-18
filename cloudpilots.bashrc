@@ -20,12 +20,12 @@ select_gcp_project() {
     GCLOUD_PROJECT=$(gcloud projects list | sed "${GCLOUD_PROJECT}q;d" | awk '{print $1}')
   fi
   export GCLOUD_PROJECT
-  export PROJECT_ID=$GCLOUD_PROJECT
   gcloud config set project "$GCLOUD_PROJECT"
 }
 
 PS1='\n\[\e[1;33m\]\u\[\e[1;31m\]@\[\e[1;32m\]${GCLOUD_PROJECT}\[\e[1;34m\] \w\[\e[1;m\]$(parse_git_branch)\n\[\e[1;34m\]\[\e[0m\]\$ '
 export GCLOUD_PROJECT=$(gcloud config get-value project 2>/dev/null)
+export PROJECT_ID=$GCLOUD_PROJECT
 
 if [[ -z "$GCLOUD_PROJECT" ]]; then
   echo
