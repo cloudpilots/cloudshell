@@ -8,7 +8,8 @@ parse_git_branch() {
 }
 
 select_gcp_project() {
-  gcloud projects list | awk '{printf("%5d : %s\n", NR-1,$0)}'
+  GCLOUD_ALL_PROJECTS=$(gcloud projects list)
+  echo "$GCLOUD_ALL_PROJECTS" | awk '{printf("%5d : %s\n", NR-1,$0)}'
   echo
   echo "What project should be set as default project?"
   echo "(use the position or the project id)"
@@ -17,7 +18,7 @@ select_gcp_project() {
   re='^[0-9]+$'
   if [[ "$GCLOUD_PROJECT" =~ $re ]]; then
     # number
-    GCLOUD_PROJECT=$(gcloud projects list | sed "${GCLOUD_PROJECT}q;d" | awk '{print $1}')
+    GCLOUD_PROJECT=$(echo "$GCLOUD_ALL_PROJECTS" | sed "$(($GCLOUD_PROJECT+1))q;d" | awk '{print $1}')
   fi
   export GCLOUD_PROJECT
   gcloud config set project "$GCLOUD_PROJECT"
