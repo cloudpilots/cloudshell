@@ -18,7 +18,7 @@ select_gcp_project() {
   re='^[0-9]+$'
   if [[ "$GCLOUD_PROJECT" =~ $re ]]; then
     # number
-    GCLOUD_PROJECT=$(echo "$GCLOUD_ALL_PROJECTS" | sed "$(($GCLOUD_PROJECT+1))q;d" | awk '{print $1}')
+    GCLOUD_PROJECT=$(echo "$GCLOUD_ALL_PROJECTS" | sed "$(($GCLOUD_PROJECT + 1))q;d" | awk '{print $1}')
   fi
   export GCLOUD_PROJECT
   gcloud config set project "$GCLOUD_PROJECT"
@@ -34,4 +34,24 @@ if [[ -z "$GCLOUD_PROJECT" ]]; then
   select_gcp_project
 fi
 
-eval `cloudshell aliases`
+eval $(cloudshell aliases)
+
+# Bash aliases
+#
+
+alias ll='ls -l'
+alias la='ls -A'
+alias l='ls -CF'
+alias tf='terraform'
+alias tfi='terraform init'
+alias tfp='terraform plan -out tfplan'
+alias tfa='terraform apply'
+alias k='kubectl'
+alias kg='kubectl get'
+alias kgp='kubectl get pod'
+alias kgd='kubectl get deployment'
+alias kgs='kubectl get service'
+alias kgi='kubectl get ingress'
+alias kd='kubectl describe'
+alias ka='kubectl apply'
+alias kdel='kubectl delete'
